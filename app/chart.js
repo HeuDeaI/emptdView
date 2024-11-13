@@ -1,4 +1,5 @@
 const chartContainer = document.getElementById('chart');
+const uploadLabel = document.getElementById('upload-label');
 const chart = LightweightCharts.createChart(chartContainer, {
     width: chartContainer.clientWidth,
     height: 500,
@@ -16,13 +17,25 @@ const chart = LightweightCharts.createChart(chartContainer, {
         horzLine: { color: '#758696', width: 1, style: 0 },
     },
     priceScale: { borderColor: '#4a4e69', textColor: '#d1d4dc' },
-    timeScale: { borderColor: '#4a4e69' },
+    timeScale: {
+        borderColor: '#4a4e69',
+        timeVisible: true,
+        secondsVisible: false,
+    },
     watermark: {
         color: 'rgba(255, 255, 255, 0.1)',
         visible: true,
         text: 'emptdView',
         fontSize: 24,
         fontFamily: 'Arial',
+    },
+});
+
+const firstSeries = chart.addLineSeries({
+    priceFormat: {
+        type: 'price',
+        minMove: 0.01,
+        precision: 2,
     },
 });
 
@@ -43,46 +56,82 @@ function handleFileUpload(event) {
     reader.onload = (e) => {
         const csvData = e.target.result;
         chartContainer.classList.remove('hidden');
-        document.getElementById('upload-label').style.display = 'none';
-        const parsedData = parseCSV(csvData);
-        candlestickSeries.setData(parsedData);
-        chart.applyOptions({ width: chartContainer.clientWidth });
+        uploadLabel.style.display = 'none';
+
+        processCSVData(csvData);
     };
     reader.readAsText(file);
 }
 
+function processCSVData(csvData) {
+    try {
+        const parsedData = parseCSV(csvData);
+        const { minMove, precision } = calculateMinMove(parsedData[0].open);
+
+        firstSeries.applyOptions({
+            priceFormat: {
+                minMove,
+                precision,
+            },
+        });
+
+        candlestickSeries.setData(parsedData);
+
+        adjustChartSize();
+    } catch (error) {
+        console.error('Error parsing CSV:', error);
+        alert('There was an error parsing the file. Please check the file format.');
+    }
+}
+
 function parseCSV(csvData) {
     const rows = csvData.trim().split('\n').slice(1);
+    if (rows.length === 0) throw new Error('No data in CSV file.');
+
     return rows.map(row => {
-        const [index, date, entry, side, take, stop] = row.split(',');
+        const columns = row.split(',').map(col => col.trim());
+        
+        if (columns.length !== 6) {
+            throw new Error('Invalid CSV format. Expected 6 columns.');
+        }
+
+        const [index, date, entry, side, take, stop] = columns;
+        
+        if (!date || !entry || !take) {
+            throw new Error('Missing necessary data in CSV row.');
+        }
+
         return {
-            time: parseInt(date.trim()) / 1000, 
+            time: parseInt(date) / 1000, 
             open: parseFloat(entry),
             high: parseFloat(entry),
-            low: parseFloat(take), 
-            close: parseFloat(take)
+            low: parseFloat(take),
+            close: parseFloat(take),
         };
     });
 }
 
+function calculateMinMove(price) {
+    const priceStr = price.toString();
+    const decimalIndex = priceStr.indexOf('.');
 
-const data = [
-    { time: new Date('2024-11-10').getTime() / 1000, open: 78000, high: 80000, low: 77000, close: 78500 },
-    { time: new Date('2024-11-11').getTime() / 1000, open: 78500, high: 80500, low: 77500, close: 79500 },
-    { time: new Date('2024-11-12').getTime() / 1000, open: 79500, high: 81500, low: 76500, close: 78000 },
-    { time: new Date('2024-11-13').getTime() / 1000, open: 78000, high: 79500, low: 77000, close: 78500 },
-    { time: new Date('2024-11-14').getTime() / 1000, open: 78500, high: 80000, low: 77000, close: 79000 },
-    { time: new Date('2024-11-15').getTime() / 1000, open: 79000, high: 81000, low: 78000, close: 80000 },
-    { time: new Date('2024-11-16').getTime() / 1000, open: 80000, high: 82000, low: 79000, close: 81000 },
-    { time: new Date('2024-11-17').getTime() / 1000, open: 81000, high: 82500, low: 79500, close: 82000 },
-    { time: new Date('2024-11-18').getTime() / 1000, open: 82000, high: 84000, low: 80500, close: 83500 },
-    { time: new Date('2024-11-19').getTime() / 1000, open: 83500, high: 85000, low: 82500, close: 84000 },
-    { time: new Date('2024-11-20').getTime() / 1000, open: 84000, high: 86000, low: 83000, close: 85000 },
-    { time: new Date('2024-11-21').getTime() / 1000, open: 85000, high: 87000, low: 84000, close: 86000 },
-    { time: new Date('2024-11-22').getTime() / 1000, open: 86000, high: 88000, low: 85000, close: 87500 },
-    { time: new Date('2024-11-23').getTime() / 1000, open: 87500, high: 89000, low: 86000, close: 88500 },
-];
+    if (decimalIndex === -1) {
+        return { minMove: 1, precision: 0 };
+    }
 
-window.addEventListener('resize', () => {
-    chart.applyOptions({ width: chartContainer.clientWidth });
-});
+    const decimalPlaces = priceStr.length - decimalIndex - 1;
+    const minMove = Math.pow(10, -decimalPlaces);
+
+    return {
+        minMove: parseFloat(minMove.toFixed(10)),
+        precision: decimalPlaces,
+    };
+}
+
+function adjustChartSize() {
+    chart.applyOptions({
+        width: chartContainer.clientWidth,
+    });
+}
+
+window.addEventListener('resize', adjustChartSize);
