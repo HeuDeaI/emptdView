@@ -3,13 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lightweight Candlestick Chart</title>
+    <title>emtdView</title>
     <script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div id="chart"></div>
+<div id="chart" class="hidden"></div>
+<input type="file" id="file" accept=".csv" onchange="handleFileUpload(event)" />
+<label for="file" id="upload-label">Upload CSV File</label>
 
 <script src="chart.js"></script>
 

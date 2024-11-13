@@ -11,3 +11,30 @@ body {
     width: 90vw;
     height: 70vh;
 }
+
+.hidden {
+    display: none;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+#upload-label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 90vw;
+    height: 70vh;
+    border-radius: 60px;
+    border: 1px dashed #999;
+    cursor: pointer;
+    font-size: 64px;
+}
+
+#upload-label:hover {
+    color: #de0611;
+    border: 1px dashed #de0611;
+    background-color: #f3f3f3;
+    transition: 0.3s;
+}

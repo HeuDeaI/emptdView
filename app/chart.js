@@ -3,57 +3,68 @@ const chart = LightweightCharts.createChart(chartContainer, {
     width: chartContainer.clientWidth,
     height: 500,
     layout: {
-        background: { 
-            type: 'solid', 
-            color: '#1e202a',
-        },
-        textColor: '#d1d4dc',  
+        background: { type: 'solid', color: '#1e202a' },
+        textColor: '#d1d4dc',
     },
     grid: {
-        vertLines: {
-            color: '#2b2b43',  
-        },
-        horzLines: {
-            color: '#2b2b43',  
-        },
+        vertLines: { color: '#2b2b43' },
+        horzLines: { color: '#2b2b43' },
     },
     crosshair: {
         mode: LightweightCharts.CrosshairMode.Normal,
-        vertLine: {
-            color: '#758696',
-            width: 1,
-            style: 0,
-        },
-        horzLine: {
-            color: '#758696',
-            width: 1,
-            style: 0,
-        },
+        vertLine: { color: '#758696', width: 1, style: 0 },
+        horzLine: { color: '#758696', width: 1, style: 0 },
     },
-    priceScale: {
-        borderColor: '#4a4e69', 
-        textColor: '#d1d4dc', 
-    },
-    timeScale: {
-        borderColor: '#4a4e69', 
-    },
+    priceScale: { borderColor: '#4a4e69', textColor: '#d1d4dc' },
+    timeScale: { borderColor: '#4a4e69' },
     watermark: {
-        color: 'rgba(255, 255, 255, 0.1)', 
+        color: 'rgba(255, 255, 255, 0.1)',
         visible: true,
-        text: 'emptdView', 
+        text: 'emptdView',
         fontSize: 24,
         fontFamily: 'Arial',
     },
 });
 
 const candlestickSeries = chart.addCandlestickSeries({
-    upColor: '#4CAF50',           
-    downColor: '#FF5252',        
-    borderDownColor: '#FF5252',    
-    borderUpColor: '#4CAF50',      
-    wickDownColor: '#FF5252',      
-    wickUpColor: '#4CAF50',     
+    upColor: '#4CAF50',
+    downColor: '#FF5252',
+    borderDownColor: '#FF5252',
+    borderUpColor: '#4CAF50',
+    wickDownColor: '#FF5252',
+    wickUpColor: '#4CAF50',
 });
+
+function handleFileUpload(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+        const csvData = e.target.result;
+        chartContainer.classList.remove('hidden');
+        document.getElementById('upload-label').style.display = 'none';
+        const parsedData = parseCSV(csvData);
+        candlestickSeries.setData(parsedData);
+        chart.applyOptions({ width: chartContainer.clientWidth });
+    };
+    reader.readAsText(file);
+}
+
+function parseCSV(csvData) {
+    const rows = csvData.trim().split('\n').slice(1);
+    return rows.map(row => {
+        const [index, date, entry, side, take, stop] = row.split(',');
+        return {
+            time: parseInt(date.trim()) / 1000, 
+            open: parseFloat(entry),
+            high: parseFloat(entry),
+            low: parseFloat(take), 
+            close: parseFloat(take)
+        };
+    });
+}
+
 
 const data = [
     { time: new Date('2024-11-10').getTime() / 1000, open: 78000, high: 80000, low: 77000, close: 78500 },
@@ -71,12 +82,6 @@ const data = [
     { time: new Date('2024-11-22').getTime() / 1000, open: 86000, high: 88000, low: 85000, close: 87500 },
     { time: new Date('2024-11-23').getTime() / 1000, open: 87500, high: 89000, low: 86000, close: 88500 },
 ];
-
-
-candlestickSeries.setData(data);
-
-
-candlestickSeries.setData(data);
 
 window.addEventListener('resize', () => {
     chart.applyOptions({ width: chartContainer.clientWidth });
