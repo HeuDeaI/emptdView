@@ -4,18 +4,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>emtdView</title>
+    <title>Emptd View</title>
     <script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <div id="chart" class="hidden"></div>
-    <input type="file" id="file" accept=".csv" onchange="handleFileUpload(event)" />
+    <div id="trade-container" class="hidden">
+        <div id="chart-container">
+            <div id="chart"></div>
+            <div id="chart-settings">Chart Settings</div>
+        </div>
+        <div id="trade-info">Trade Info</div>
+    </div>
+
+    <input type="file" id="file" accept=".csv" />
     <label for="file" id="upload-label">Upload CSV File</label>
 
-    <script src="chart.js"></script>
+    <!-- External JavaScript files from 'scripts' folder -->
+    <script src="scripts/chart.js"></script>
+    <script src="scripts/csvProcessor.js"></script>
+    <script src="scripts/main.js"></script>
 
 </body>
 

@@ -5,11 +5,49 @@ body {
     height: 100vh;
     margin: 0;
     background-color: lightgray;
+    overflow: hidden;
+}
+
+#trade-container.hidden {
+    display: none;
+}
+
+#trade-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    width: 100vw; 
+    height: 100vh; 
+}
+
+#chart-container {
+    display: flex;
+    gap: 10px;
+    width: 100vw;
+    height: 85vh;
 }
 
 #chart {
-    width: 90vw;
-    height: 70vh;
+    position: relative;
+    width: 85vw;
+    height: 100%;
+}
+
+#chart-settings {
+    width: 15vw;
+    height: 100%;
+    background-color: gray;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+#trade-info {
+    width: 100vw;
+    height: 15vh;
+    background-color: gray;
+    padding: 10px;
+    box-sizing: border-box;
 }
 
 .hidden {
@@ -21,16 +59,23 @@ input[type="file"] {
 }
 
 #upload-label {
+    position: absolute;
+    top: 50%;
+    left: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 90vw;
-    height: 70vh;
+    width: 80vw;  
+    height: 80vh; 
     border-radius: 60px;
     border: 1px dashed #999;
     cursor: pointer;
     font-size: 64px;
+    background-color: lightgray;
+    z-index: 10; 
+    transform: translate(-50%, -50%);  
 }
+
 
 #upload-label:hover {
     color: #de0611;
