@@ -17,10 +17,6 @@ body {
     height: 100vh;
 }
 
-#trade-container.hidden {
-    display: none;
-}
-
 #chart-container {
     display: flex;
     gap: 10px;
@@ -28,11 +24,26 @@ body {
     height: 85vh;
 }
 
-#chart {
-    position: relative;
+#chart-wrapper.hidden {
+    display: none;
+}
+
+#chart-wrapper {
     width: 85vw;
     height: 100%;
-    background-color: #262a3d;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: #33374d;
+    display: flex;
+    box-sizing: border-box;
+    position: relative;
+}
+
+#chart {
+    width: 100%;
+    height: 100%;
+    background-color: #33374d;
+    box-sizing: border-box; 
 }
 
 #chart-settings {
@@ -42,22 +53,20 @@ body {
     padding: 10px;
     background-color: #33374d;
     border-radius: 8px;
-    max-width: 400px;
-    margin: 10px auto;
     color: #e0e3eb;
 }
 
 #chart-settings div {
     flex-basis: 100%;
     font-weight: bold;
-    margin-bottom: 5px;
     color: #e0e3eb;
 }
 
 #chart-settings button {
-    flex: 1 1 30%;
-    padding: 10px;
-    font-size: 16px;
+    flex: 1 1 20%;  
+    padding: 4px 10px; 
+    font-size: 24px; 
+    line-height: 1; 
     cursor: pointer;
     background-color: #0078d7;
     color: #ffffff;
@@ -66,12 +75,14 @@ body {
     transition: background-color 0.3s ease;
 }
 
+
 #chart-settings button.active {
     background-color: #005fa3;
     color: #ffffff;
 }
 
 #chart-settings button#toggleSimulation {
+    flex: 1 1 100%;
     background-color: #28c76f;
 }
 
@@ -115,22 +126,23 @@ input[type="file"] {
 
 #upload-label {
     position: absolute;
-    top: 50%;
-    left: 50%;
+    top: 20px;
+    left: 20px;
+    right: 20px;
+    bottom: 20px;
+    padding: 20px;
+    background-color: #2b3044;
+    box-sizing: border-box;
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 80vw;
-    height: 80vh;
-    border-radius: 40px;
+    border-radius: 8px;
     border: 2px dashed #0078d7;
     cursor: pointer;
-    font-size: 64px;
+    font-size: 32px;
     color: #ffffff;
-    background-color: #2b3044;
-    z-index: 10;
-    transform: translate(-50%, -50%);
     transition: 0.3s;
+    z-index: 10;
 }
 
 #upload-label:hover {
@@ -138,3 +150,4 @@ input[type="file"] {
     border-color: #20a85a;
     background-color: #33374d;
 }
+

@@ -7,7 +7,7 @@ async function handleFileUpload(event) {
     return new Promise((resolve, reject) => {
         reader.onload = async (e) => {
             const csvData = e.target.result;
-            tradeContainer.classList.remove('hidden');
+            chartContainer.classList.remove('hidden');
             uploadLabel.style.display = 'none';
 
             try {

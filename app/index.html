@@ -11,25 +11,25 @@
 
 <body>
 
-    <div id="trade-container" class="hidden">
+    <div id="trade-container">
         <div id="chart-container">
-            <div id="chart"></div>
+            <div id="chart-wrapper">
+                <label id="upload-label" for="file">Upload CSV File
+                    <input type="file" id="file" accept=".csv" style="display: none;" />
+                </label>       
+                <div id="chart" class="hidden" style="width: 100%; height: 100%;"></div>
+            </div>             
             <div id="chart-settings">
                 <div>Chart Settings</div>
                 <button id="speedUp1x">1x</button>
                 <button id="speedUp2x">2x</button>
-                <button id="speedUp4x" class="active">4x</button>
-                <button id="speedUp8x">8x</button>
-                <button id="speedUp16x">16x</button>
-                <button id="speedUp32x">32x</button>
+                <button id="speedUp5x" class="active">5x</button>
+                <button id="speedUp10x">10x</button>
                 <button id="toggleSimulation">Start</button>
             </div>
         </div>
         <div id="trade-info">Trade Info</div>
     </div>
-
-    <input type="file" id="file" accept=".csv" />
-    <label for="file" id="upload-label">Upload CSV File</label>
 
     <!-- External JavaScript files from 'scripts' folder -->
     <script src="scripts/chart.js"></script>

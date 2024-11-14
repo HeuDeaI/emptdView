@@ -1,5 +1,4 @@
 const chartContainer = document.getElementById('chart');
-const tradeContainer = document.getElementById('trade-container');
 const uploadLabel = document.getElementById('upload-label');
 
 const chart = LightweightCharts.createChart(chartContainer, {
