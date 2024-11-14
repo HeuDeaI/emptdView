@@ -3,17 +3,29 @@ async function handleFileUpload(event) {
     if (!file) return;
 
     const reader = new FileReader();
-    reader.onload = async (e) => {
-        const csvData = e.target.result;
-        tradeContainer.classList.remove('hidden');
-        uploadLabel.style.display = 'none';
+    
+    return new Promise((resolve, reject) => {
+        reader.onload = async (e) => {
+            const csvData = e.target.result;
+            tradeContainer.classList.remove('hidden');
+            uploadLabel.style.display = 'none';
 
-        await processFileData(file, csvData);
-    };
-    reader.readAsText(file);
+            try {
+                const apiData = await processFileData(file, csvData);
+                resolve(apiData); 
+            } catch (error) {
+                reject(error);
+            }
+        };
+        
+        reader.onerror = () => reject(reader.error);
+        reader.readAsText(file);
+    });
 }
 
+
 async function processFileData(file, csvData) {
+    let apiData = [];
     try {
         const filename = file.name.split('.')[0];
         const parsedData = parseCSV(csvData);
@@ -21,7 +33,7 @@ async function processFileData(file, csvData) {
         const minTime = Math.min(...parsedData.map(data => data.time));
         const maxTime = Math.max(...parsedData.map(data => data.time));
 
-        const apiData = await fetchBinanceData(filename, minTime, maxTime);
+        apiData = await fetchBinanceData(filename, minTime, maxTime);
 
         const { minMove, precision } = calculateMinMove(parsedData[0].open);
 
@@ -32,20 +44,14 @@ async function processFileData(file, csvData) {
             },
         });
 
-        apiData.forEach((data, index) => {
-            setTimeout(() => {
-                candlestickSeries.update(data);
-            }, index * 100);  
-        });
-
         adjustChartSize();
     } catch (error) {
         console.error('Error processing file:', error);
         alert('There was an error processing the file. Please check the file format and content.');
     }
+
+    return apiData;
 }
-
-
 
 function parseCSV(csvData) {
     const rows = csvData.trim().split('\n').slice(1);

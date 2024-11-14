@@ -1,5 +1,27 @@
+let apiData;
+
 document.addEventListener('DOMContentLoaded', () => {
     const fileInput = document.getElementById('file');
-    fileInput.addEventListener('change', handleFileUpload);
-});
 
+    fileInput.addEventListener('change', async (event) => {
+        try {
+            apiData = await handleFileUpload(event);
+        } catch (error) {
+            console.error("Error during file upload:", error);
+        }
+    });
+
+    const speedButtons = document.querySelectorAll("button[id^='speedUp']");
+    speedButtons.forEach(button => {
+        const speed = parseInt(button.id.replace('speedUp', ''));
+        button.addEventListener('click', () => {
+            updateSpeed(speed);
+
+            speedButtons.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+        });
+    });
+
+
+    document.getElementById('toggleSimulation').addEventListener('click', toggleSimulation);
+});
