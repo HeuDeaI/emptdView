@@ -4,12 +4,8 @@ body {
     align-items: center;
     height: 100vh;
     margin: 0;
-    background-color: lightgray;
+    background-color: #1c1f2b;
     overflow: hidden;
-}
-
-#trade-container.hidden {
-    display: none;
 }
 
 #trade-container {
@@ -17,8 +13,12 @@ body {
     flex-direction: column;
     align-items: flex-start;
     gap: 10px;
-    width: 100vw; 
-    height: 100vh; 
+    width: 100vw;
+    height: 100vh;
+}
+
+#trade-container.hidden {
+    display: none;
 }
 
 #chart-container {
@@ -32,22 +32,77 @@ body {
     position: relative;
     width: 85vw;
     height: 100%;
+    background-color: #262a3d;
 }
 
 #chart-settings {
-    width: 15vw;
-    height: 100%;
-    background-color: gray;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
     padding: 10px;
-    box-sizing: border-box;
+    background-color: #33374d;
+    border-radius: 8px;
+    max-width: 400px;
+    margin: 10px auto;
+    color: #e0e3eb;
+}
+
+#chart-settings div {
+    flex-basis: 100%;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #e0e3eb;
+}
+
+#chart-settings button {
+    flex: 1 1 30%;
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #0078d7;
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    transition: background-color 0.3s ease;
+}
+
+#chart-settings button.active {
+    background-color: #005fa3;
+    color: #ffffff;
+}
+
+#chart-settings button#toggleSimulation {
+    background-color: #28c76f;
+}
+
+#chart-settings button#toggleSimulation:hover {
+    background-color: #20a85a;
+}
+
+#chart-settings button#toggleSimulation:active {
+    background-color: #188644;
+}
+
+
+#chart-settings button#toggleSimulation.stop {
+    background-color: #f44336;
+}
+
+#chart-settings button#toggleSimulation.stop:hover {
+    background-color: #d0352b;
+}
+
+#chart-settings button#toggleSimulation.stop:active {
+    background-color: #b02a23;
 }
 
 #trade-info {
     width: 100vw;
     height: 15vh;
-    background-color: gray;
+    background-color: #33374d;
     padding: 10px;
     box-sizing: border-box;
+    color: #e0e3eb;
 }
 
 .hidden {
@@ -65,21 +120,21 @@ input[type="file"] {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 80vw;  
-    height: 80vh; 
-    border-radius: 60px;
-    border: 1px dashed #999;
+    width: 80vw;
+    height: 80vh;
+    border-radius: 40px;
+    border: 2px dashed #0078d7;
     cursor: pointer;
     font-size: 64px;
-    background-color: lightgray;
-    z-index: 10; 
-    transform: translate(-50%, -50%);  
+    color: #ffffff;
+    background-color: #2b3044;
+    z-index: 10;
+    transform: translate(-50%, -50%);
+    transition: 0.3s;
 }
 
-
 #upload-label:hover {
-    color: #de0611;
-    border: 1px dashed #de0611;
-    background-color: #f3f3f3;
-    transition: 0.3s;
+    color: #20a85a;
+    border-color: #20a85a;
+    background-color: #33374d;
 }
