@@ -11,7 +11,6 @@ body {
 #trade-container {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
     gap: 10px;
     width: 100vw;
     height: 100vh;
@@ -24,12 +23,8 @@ body {
     height: 85vh;
 }
 
-#chart-wrapper.hidden {
-    display: none;
-}
-
 #chart-wrapper {
-    width: 85vw;
+    width: 75vw;
     height: 100%;
     padding: 10px;
     border-radius: 8px;
@@ -39,34 +34,52 @@ body {
     position: relative;
 }
 
+#chart-wrapper.hidden {
+    display: none;
+}
+
 #chart {
     width: 100%;
     height: 100%;
     background-color: #33374d;
-    box-sizing: border-box; 
+    box-sizing: border-box;
 }
 
-#chart-settings {
+#settings {
+    width: 25vw;
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
-    padding: 10px;
-    background-color: #33374d;
     border-radius: 8px;
     color: #e0e3eb;
-}
-
-#chart-settings div {
-    flex-basis: 100%;
     font-weight: bold;
-    color: #e0e3eb;
+    font-size: 24px;
 }
 
-#chart-settings button {
-    flex: 1 1 20%;  
-    padding: 4px 10px; 
-    font-size: 24px; 
-    line-height: 1; 
+#trade-settings, 
+#simulation, 
+#chart-settings {
+    flex: 1 1 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    padding: 12px;
+    background-color: #33374d;
+    border-radius: 8px;
+}
+
+#settings div {
+    flex-basis: 100%; 
+    text-align: center; 
+    font-weight: bold;
+}
+
+#settings button {
+    flex: 1 1 40%;
+    padding: 4px 10px;
+    font-size: 24px;
+    line-height: 1;
     cursor: pointer;
     background-color: #0078d7;
     color: #ffffff;
@@ -75,45 +88,54 @@ body {
     transition: background-color 0.3s ease;
 }
 
-
-#chart-settings button.active {
+#settings button:hover {
     background-color: #005fa3;
-    color: #ffffff;
 }
 
-#chart-settings button#toggleSimulation {
+#settings button.active {
+    background-color: #005fa3;
+}
+
+#settings button#toggleSimulation {
+    font-weight: bold;
+    font-size: 32px;
+    letter-spacing: 1px;
     flex: 1 1 100%;
     background-color: #28c76f;
 }
 
-#chart-settings button#toggleSimulation:hover {
+#settings button#toggleSimulation:hover {
     background-color: #20a85a;
 }
 
-#chart-settings button#toggleSimulation:active {
+#settings button#toggleSimulation:active {
     background-color: #188644;
 }
 
-
-#chart-settings button#toggleSimulation.stop {
+#settings button#toggleSimulation.stop {
     background-color: #f44336;
 }
 
-#chart-settings button#toggleSimulation.stop:hover {
+#settings button#toggleSimulation.stop:hover {
     background-color: #d0352b;
 }
 
-#chart-settings button#toggleSimulation.stop:active {
+#settings button#toggleSimulation.stop:active {
     background-color: #b02a23;
 }
 
 #trade-info {
     width: 100vw;
     height: 15vh;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    box-sizing: border-box;
+    border-radius: 8px;
+    color: #e0e3eb;
+    font-weight: bold;
     background-color: #33374d;
     padding: 10px;
-    box-sizing: border-box;
-    color: #e0e3eb;
 }
 
 .hidden {
@@ -141,7 +163,7 @@ input[type="file"] {
     cursor: pointer;
     font-size: 32px;
     color: #ffffff;
-    transition: 0.3s;
+    transition: all 0.3s ease;
     z-index: 10;
 }
 
@@ -150,4 +172,3 @@ input[type="file"] {
     border-color: #20a85a;
     background-color: #33374d;
 }
-
