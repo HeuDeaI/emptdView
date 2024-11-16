@@ -11,7 +11,6 @@ body {
 #trade-container {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
     gap: 10px;
     width: 100vw;
     height: 100vh;
@@ -22,10 +21,6 @@ body {
     gap: 10px;
     width: 100vw;
     height: 85vh;
-}
-
-#chart-wrapper.hidden {
-    display: none;
 }
 
 #chart-wrapper {
@@ -39,11 +34,15 @@ body {
     position: relative;
 }
 
+#chart-wrapper.hidden {
+    display: none;
+}
+
 #chart {
     width: 100%;
     height: 100%;
     background-color: #33374d;
-    box-sizing: border-box; 
+    box-sizing: border-box;
 }
 
 #settings {
@@ -54,51 +53,33 @@ body {
     border-radius: 8px;
     color: #e0e3eb;
     font-weight: bold;
-    font-size: 24px; 
+    font-size: 24px;
 }
 
-#trade-settings {
-    flex: 1 1 100%;  
-    display: flex;
-    flex-wrap: wrap;
-    background-color: #33374d;
-    gap: 10px;
-    padding: 10px;
-    border-radius: 8px;
-    color: #e0e3eb;
-    font-weight: bold;
-}
-
-#simulation {
-    flex: 1 1 100%;  
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    padding: 10px;
-    font-size: 24px; 
-    background-color: #33374d;
-    border-radius: 8px;
-}
-
+#trade-settings, 
+#simulation, 
 #chart-settings {
-    flex: 1 1 100%;  
+    flex: 1 1 100%;
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
     gap: 10px;
-    padding: 10px;
+    padding: 12px;
     background-color: #33374d;
     border-radius: 8px;
 }
 
 #settings div {
-    flex-basis: 100%;
+    flex-basis: 100%; 
+    text-align: center; 
+    font-weight: bold;
 }
 
 #settings button {
-    flex: 1 1 40%;  
-    padding: 4px 10px; 
-    font-size: 24px; 
-    line-height: 1; 
+    flex: 1 1 40%;
+    padding: 4px 10px;
+    font-size: 24px;
+    line-height: 1;
     cursor: pointer;
     background-color: #0078d7;
     color: #ffffff;
@@ -107,15 +88,18 @@ body {
     transition: background-color 0.3s ease;
 }
 
+#settings button:hover {
+    background-color: #005fa3;
+}
 
 #settings button.active {
     background-color: #005fa3;
-    color: #ffffff;
 }
 
 #settings button#toggleSimulation {
     font-weight: bold;
-    font-size: 36px; 
+    font-size: 32px;
+    letter-spacing: 1px;
     flex: 1 1 100%;
     background-color: #28c76f;
 }
@@ -127,7 +111,6 @@ body {
 #settings button#toggleSimulation:active {
     background-color: #188644;
 }
-
 
 #settings button#toggleSimulation.stop {
     background-color: #f44336;
@@ -180,7 +163,7 @@ input[type="file"] {
     cursor: pointer;
     font-size: 32px;
     color: #ffffff;
-    transition: 0.3s;
+    transition: all 0.3s ease;
     z-index: 10;
 }
 
@@ -189,4 +172,3 @@ input[type="file"] {
     border-color: #20a85a;
     background-color: #33374d;
 }
-
