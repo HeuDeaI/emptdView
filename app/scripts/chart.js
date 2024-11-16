@@ -55,5 +55,46 @@ function adjustChartSize() {
         height: chartContainer.clientHeight,
     });
 }
+let currentTrade = null;
+function displayTrade(trade) {
+    if (currentTrade) {
+        if (currentTrade.takeLine) {
+            candlestickSeries.removePriceLine(currentTrade.takeLine);
+        }
+        if (currentTrade.stopLine) {
+            candlestickSeries.removePriceLine(currentTrade.stopLine);
+        }
+    }
 
+    candlestickSeries.setMarkers([
+        {
+            time: trade.time,
+            position: trade.side === 'long' ? 'belowBar' : 'aboveBar',
+            color: trade.side === 'long' ? '#4CAF50' : '#FF5252',
+            shape: 'arrowUp',
+            text: `Entry: ${trade.entry}`,
+        },
+    ]);
+
+    const takeLine = candlestickSeries.createPriceLine({
+        price: trade.take,
+        color: '#4CAF50',
+        lineWidth: 2,
+        lineStyle: LightweightCharts.LineStyle.Dotted,
+        axisLabelVisible: true,
+        title: 'Take Profit',
+    });
+
+    const stopLine = candlestickSeries.createPriceLine({
+        price: trade.stop,
+        color: '#FF5252',
+        lineWidth: 2,
+        lineStyle: LightweightCharts.LineStyle.Dotted,
+        axisLabelVisible: true,
+        title: 'Stop Loss',
+    });
+
+    currentTrade = { takeLine, stopLine };
+    return currentTrade
+}
 window.addEventListener('resize', adjustChartSize);

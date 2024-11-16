@@ -5,11 +5,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     fileInput.addEventListener('change', async (event) => {
         try {
+            const csvData = await handleTradeFileUpload(event);
+            trades = parseCSV(csvData); 
             apiData = await handleFileUpload(event);
         } catch (error) {
             console.error("Error during file upload:", error);
         }
     });
+    
 
     const speedButtons = document.querySelectorAll("button[id^='speedUp']");
     speedButtons.forEach(button => {

@@ -15,13 +15,21 @@ function updateSpeed(speed) {
 function startSimulation() {
     updateTimer = setInterval(() => {
         if (currentIndex < apiData.length) {
-            candlestickSeries.update(apiData[currentIndex]);
+            const candle = apiData[currentIndex];
+            candlestickSeries.update(candle);
+            
+            const currentTrade = trades.find(trade => trade.time === candle.time);
+            if (currentTrade) {
+                displayTrade(currentTrade);
+            }
+
             currentIndex++;
         } else {
             stopSimulation();
         }
     }, updateInterval);
 }
+
 
 function stopSimulation() {
     if (updateTimer) {
