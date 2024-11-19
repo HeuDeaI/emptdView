@@ -87,17 +87,19 @@ function parseCSV(csvData) {
             throw new Error('Invalid CSV format. Expected 6 columns.');
         }
 
-        const [index, date, entry, side, take, stop] = columns;
+        const [index, date, entry, side, take, stop, size, pnl] = columns;
         if (!date || !entry || !take || !stop) {
             throw new Error('Missing necessary data in CSV row.');
         }
 
         return {
-            time: parseInt(date) / 1000,
+            time: parseInt(date),
             entry: parseFloat(entry), 
             side: side.toLowerCase(), 
             take: parseFloat(take),
             stop: parseFloat(stop), 
+            size: 0.0,
+            pnl: 0.0,
         };
     });
 }
@@ -109,8 +111,8 @@ async function fetchBinanceData(symbol, startTime, endTime) {
     let allData = [];
 
     try {
-        let currentStartTime = startTime * 1000;
-        const endTimeMs = endTime * 1000; 
+        let currentStartTime = startTime;
+        const endTimeMs = endTime; 
 
         while (currentStartTime < endTimeMs) {
             const url = `${urlBase}&startTime=${currentStartTime}&endTime=${endTimeMs}&limit=${limit}`;
@@ -125,7 +127,7 @@ async function fetchBinanceData(symbol, startTime, endTime) {
 
             allData = allData.concat(
                 data.map(candle => ({
-                    time: candle[0] / 1000,
+                    time: candle[0],
                     open: parseFloat(candle[1]),
                     high: parseFloat(candle[2]),
                     low: parseFloat(candle[3]),

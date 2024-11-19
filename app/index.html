@@ -12,13 +12,28 @@
 <body>
 
     <div id="trade-container">
+        <div id="inputs-container">
+            <label>
+                Balance:
+                <input type="number" id="balance-input" placeholder="Enter starting balance" value="1000"/>
+            </label>
+            <label>
+                Risk per Trade (%):
+                <input type="number" id="risk-input" placeholder="Enter risk %" value="2"/>
+            </label>
+            <label>
+                Leverage:
+                <input type="number" id="leverage-input" placeholder="Enter leverage" value="20"/>
+            </label>
+            <button id = "apply">Apply</button>
+        </div>
         <div id="chart-container">
             <div id="chart-wrapper">
                 <label id="upload-label" for="file">Upload CSV File
                     <input type="file" id="file" accept=".csv" style="display: none;" />
-                </label>       
+                </label>
                 <div id="chart" class="hidden" style="width: 100%; height: 100%;"></div>
-            </div>             
+            </div>
             <div id="chart-settings">
                 <div>Chart Settings</div>
                 <button id="speedUp1x">1x</button>
@@ -28,18 +43,19 @@
                 <button id="speedUp20x">20x</button>
                 <button id="speedUp50x">50x</button>
                 <button id="speedUp100x">100x</button>
+                <button id="speedUp1000x">1000x</button>
+                <button id="speedUp10000x">10000x</button>
 
                 <button id="toggleSimulation">Start</button>
             </div>
         </div>
-        <div id="trade-info">Trade Info</div>
+        <div id="trade-info"></div>
     </div>
 
     <script src="scripts/chart.js"></script>
     <script src="scripts/csvProcessor.js"></script>
     <script src="scripts/main.js"></script>
     <script src="scripts/simulation.js"></script>
-
 
 </body>
 

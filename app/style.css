@@ -17,6 +17,55 @@ body {
     height: 100vh;
 }
 
+#inputs-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 10px;
+    background-color: #33374d;
+    border-radius: 8px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+#inputs-container label {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    color: #e0e3eb;
+    font-weight: bold;
+}
+
+#inputs-container input {
+    padding: 8px 12px;
+    font-size: 16px;
+    border: 1px solid #555a72;
+    border-radius: 4px;
+    background-color: #1c1f2b;
+    color: #ffffff;
+    outline: none;
+}
+
+#inputs-container input:focus {
+    border-color: #0078d7;
+}
+
+#inputs-container button {
+    padding: 8px 16px;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: #28c76f;
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#inputs-container button:hover {
+    background-color: #20a85a;
+}
+
 #chart-container {
     display: flex;
     gap: 10px;
@@ -109,11 +158,28 @@ body {
 
 #trade-info {
     width: 100vw;
-    height: 15vh;
+    height: 200px;
     background-color: #33374d;
     padding: 10px;
     box-sizing: border-box;
     color: #e0e3eb;
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    white-space: nowrap;
+    border-radius: 8px;
+    align-items: center;
+    font-size: 16px;
+}
+
+#trade-info p {
+    margin: 0;
+    padding: 0 10px;
+    border-right: 1px solid #555a72;
+}
+
+#trade-info p:last-child {
+    border-right: none;
 }
 
 .hidden {

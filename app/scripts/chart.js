@@ -57,14 +57,6 @@ function adjustChartSize() {
 }
 let currentTrade = null;
 function displayTrade(trade) {
-    if (currentTrade) {
-        if (currentTrade.takeLine) {
-            candlestickSeries.removePriceLine(currentTrade.takeLine);
-        }
-        if (currentTrade.stopLine) {
-            candlestickSeries.removePriceLine(currentTrade.stopLine);
-        }
-    }
 
     candlestickSeries.setMarkers([
         {

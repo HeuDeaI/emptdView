@@ -1,4 +1,5 @@
 let apiData;
+const tradeInfo = document.getElementById("trade-info");
 
 document.addEventListener('DOMContentLoaded', () => {
     const fileInput = document.getElementById('file');
@@ -25,6 +26,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-
+    document.getElementById('apply').addEventListener('click', applyBalance);
     document.getElementById('toggleSimulation').addEventListener('click', toggleSimulation);
 });
